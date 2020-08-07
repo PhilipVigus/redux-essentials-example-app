@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
 import { postAdded } from "./postsSlice";
 
 const AddPostForm = () => {
@@ -14,14 +13,10 @@ const AddPostForm = () => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        })
-      );
-
+      // payload formation is taken care of in the prepare callback in createSlice
+      // all we need to do is pass in the title and content, and the callback does the
+      // rest
+      dispatch(postAdded(title, content));
       setTitle("");
       setContent("");
     }
